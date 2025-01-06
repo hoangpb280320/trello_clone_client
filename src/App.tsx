@@ -3,20 +3,13 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import Login from './components/login'
+import axios from 'axios'
+import * as config from './configs'
 
 function App() {
   const handleLoginSuccess = async (code: string) => {
-    await fetch('http://localhost:3000/api/auth/google/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        code
-      }),
-    })
-            .then(response => console.log('check12 response', response))
-            .catch(error => console.log('check12 error', error))
+    const response = await axios.post(`${config.baseApiUrl}/auth/google/login`, {code});
+    console.log('check12 response', response)
   }
   return (
     <>
