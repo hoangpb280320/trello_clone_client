@@ -5,9 +5,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import Login from "./components/login";
 
 function App() {
-  const handleLoginSuccess = (response: any) => {
-    console.log("Login Success", response);
-  };
   return (
     <>
       <div>
@@ -20,7 +17,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <GoogleOAuthProvider clientId="149505907175-17o78d8eivi3hurut15q3vl9rrk2r9gt.apps.googleusercontent.com">
-        <Login handleLoginSuccess={handleLoginSuccess} />
+        <Login />
       </GoogleOAuthProvider>
     </>
   );

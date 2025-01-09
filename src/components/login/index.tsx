@@ -1,14 +1,13 @@
 import { useGoogleLogin } from "@react-oauth/google";
+import { useDispatch } from "react-redux";
+import { handleLogin } from "../../store/modules/auth/auth.slice";
 
-function Login({
-  handleLoginSuccess,
-}: {
-  handleLoginSuccess: (code: string) => void;
-}) {
-  const handleLogin = useGoogleLogin({
+function Login() {
+  const dispatch = useDispatch();
+
+  const onClick = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      console.log("check12 code", codeResponse);
-      handleLoginSuccess(codeResponse.code);
+      dispatch(handleLogin({ code: codeResponse.code }));
     },
     onError: (error) => {
       console.log("check12 err", error);
@@ -19,7 +18,7 @@ function Login({
   return (
     <div>
       <button
-        onClick={handleLogin}
+        onClick={onClick}
         style={{
           width: "200px",
           height: "30px",

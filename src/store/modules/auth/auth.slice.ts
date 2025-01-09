@@ -1,26 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoginPayload } from "./auth.type";
+import { AuthState, LoginFail, LoginPayload, LoginSuccess } from "./auth.type";
 
-interface State {
-  data: string;
-}
-
-const initialState: State = {
-  data: "",
+const initialState: AuthState = {
+  user: {},
+  isLoading: false,
+  error: {},
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    handleLogin(_state, _action: PayloadAction<LoginPayload>) {
-      console.log("Login");
+    handleLogin(state, _action: PayloadAction<LoginPayload>) {
+      state.isLoading = true;
     },
-    loginSuccess(_state, action) {
-      console.log("Login success", action.payload);
+    loginSuccess(state, action: PayloadAction<LoginSuccess>) {
+      state.user = action.payload;
+      state.isLoading = false;
     },
-    loginFail(_state, action) {
-      console.log("Login fail", action.payload);
+    loginFail(state, action: PayloadAction<LoginFail>) {
+      state.error.message = action.payload.message;
     },
   },
 });
