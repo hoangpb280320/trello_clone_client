@@ -3,8 +3,13 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Login from "./components/login";
+import { useSelector } from "react-redux";
+import { selectUser } from "./store/modules/auth/select";
 
 function App() {
+  const authState = useSelector(selectUser);
+  console.log("check12 authState", authState);
+
   return (
     <>
       <div>

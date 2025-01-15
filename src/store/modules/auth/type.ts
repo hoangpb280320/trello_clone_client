@@ -11,8 +11,19 @@ export interface AuthState {
   };
 }
 
-export interface LoginPayload {
+export interface LoginWithGooglePayload {
   code: string;
+}
+
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface RegisterPayload {
+  username: string;
+  email: string;
+  password: string;
 }
 
 export interface LoginSuccess {
@@ -27,8 +38,8 @@ export interface LoginFail {
 }
 
 export interface LoginResponse {
-  id: string;
-  userName: string;
-  email: string;
-  avatar?: string;
+  data: {
+    token: string;
+    user: LoginSuccess;
+  };
 }

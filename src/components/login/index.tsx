@@ -1,13 +1,13 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
-import { handleLogin } from "../../store/modules/auth/auth.slice";
+import { onLoginWithGoogle } from "../../store/modules/auth/action";
 
 function Login() {
   const dispatch = useDispatch();
 
   const onClick = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      dispatch(handleLogin({ code: codeResponse.code }));
+      dispatch(onLoginWithGoogle({ code: codeResponse.code }));
     },
     onError: (error) => {
       console.log("check12 err", error);
