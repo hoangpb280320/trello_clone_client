@@ -1,0 +1,43 @@
+.app-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    height: 56px;
+
+    .app-bar__left {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+
+        .app-bar__item {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+
+            span {
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .app-bar__right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+        }
+
+        .un-auth-control {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+    }
+}
