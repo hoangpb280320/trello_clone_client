@@ -1,19 +1,18 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Button } from "../../../components/common";
 import "../styles.scss";
-import Login from "../../../components/login";
+import { useNavigate } from "react-router";
 
 export default function AuthControl() {
+  const navigate = useNavigate();
+
+  const handleClickLogin = () => {
+    navigate("/login");
+  };
+
   return (
-    <div className="un-auth-control">
-      <GoogleOAuthProvider clientId="149505907175-17o78d8eivi3hurut15q3vl9rrk2r9gt.apps.googleusercontent.com">
-        <Login />
-      </GoogleOAuthProvider>
-      <Button variant="contained" color="primary">
+    <div>
+      <Button variant="contained" color="primary" onClick={handleClickLogin}>
         Login
-      </Button>
-      <Button variant="contained" color="primary">
-        Register
       </Button>
     </div>
   );

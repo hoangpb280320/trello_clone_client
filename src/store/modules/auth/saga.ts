@@ -1,5 +1,5 @@
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
-import { LoginSuccess } from "./type";
+import { LoginResponse, LoginSuccess } from "./type";
 import { handleLogin, handleLoginWithGoogle } from "./service";
 import {
   LOGIN,
@@ -7,6 +7,8 @@ import {
   onLoginFail,
   onLoginSuccess,
 } from "./action";
+import ls from "localstorage-slim";
+import { secretKey } from "../../../configs/configEnv";
 
 function* watchLoginWithGoogle() {
   yield takeLatest(LOGIN_WITH_GOOGLE, loginWithGoogle);
@@ -29,8 +31,11 @@ function* watchLogin() {
 
 function* login(action: ReturnType<typeof LOGIN>) {
   try {
-    const data: LoginSuccess = yield call(handleLogin, action.payload);
-    yield put(onLoginSuccess(data));
+    const data: LoginResponse = yield call(handleLogin, action.payload);
+    const { user, token } = data.data;
+    ls.set("token", token);
+    ls.set("user", user);
+    yield put(onLoginSuccess(user));
   } catch (error: any) {
     let message = getErrorMessage(error);
     yield put(onLoginFail({ message }));

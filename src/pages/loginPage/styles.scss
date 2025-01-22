@@ -1,0 +1,64 @@
+.login-page {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+
+    .main-content {
+        width: 400px;
+        padding: 32px 40px;
+        color: #172b4d;
+
+        .header {
+            gap: 5px;
+
+            h1 {
+                font-size: 35px;
+            }
+        }
+
+        .MuiGrid2-container {
+            .MuiGrid2-root:nth-of-type(2) {
+                span {
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+            }
+
+            .login-with-google {
+                margin-top: 30px;
+            }
+
+            .footer {
+                gap: 5px;
+                margin-top: 20px;
+
+                .MuiSvgIcon-root {
+                    font-size: 5px;
+                }
+            }
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+
+            input {
+                transform: scale(1.2);
+            }
+
+            .MuiSvgIcon-root {
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

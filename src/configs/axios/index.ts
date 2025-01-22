@@ -3,6 +3,7 @@ import axios, {
   AxiosRequestConfig,
   RawAxiosRequestHeaders,
 } from "axios";
+import { baseUrl } from "../configEnv";
 
 export default class HttpClient {
   defaultHeaders: RawAxiosRequestHeaders;
@@ -15,7 +16,6 @@ export default class HttpClient {
   }
 
   buildUrl(path: string): string {
-    const baseUrl = import.meta.env.VITE_BASE_API_URL;
     return `${baseUrl}${path}`;
   }
 

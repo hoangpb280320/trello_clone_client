@@ -1,7 +1,7 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import reactLogo from "../../assets/react.svg";
 import viteLogo from "/vite.svg";
-import Login from "../../components/login";
+import Login from "../../components/loginWithGoogle";
 
 function MainPage() {
   return (

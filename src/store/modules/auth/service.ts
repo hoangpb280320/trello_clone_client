@@ -10,7 +10,7 @@ export const handleRegister = async (payload: RegisterPayload) => {
 
 export const handleLogin = async (payload: LoginPayload) => {
   const response = await http.post<LoginResponse>()("auth/login", payload);
-  return response.data.data.user;
+  return response.data;
 };
 
 export const handleLoginWithGoogle = async (code: string) => {
