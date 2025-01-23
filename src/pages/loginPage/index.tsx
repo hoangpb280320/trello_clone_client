@@ -1,4 +1,5 @@
 import { Divider, Grid2, Link, Paper } from "@mui/material";
+import { useEffect, useState } from "react";
 import reactIcon from "../../assets/react.svg";
 import classnames from "classnames";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -8,27 +9,31 @@ import { Button } from "../../components/common";
 import LoginWithGoogle from "../../components/loginWithGoogle";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
-import { useEffect, useState } from "react";
 import { emailSchema, passwordSchema } from "../../schemas";
 import Login from "../../components/login";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { onLogin } from "../../store/modules/auth/action";
-import ls from "localstorage-slim";
-import { secretKey } from "../../configs/configEnv";
+import { selectIsAuth } from "../../store/modules/auth/select";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const token = ls.get("token", { secret: secretKey });
+  const isAuth = useSelector(selectIsAuth);
 
   useEffect(() => {
-    console.log(token);
-  }, [token]);
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [isAuth]);
 
   const handleSubmitEmail = async () => {
     emailSchema
@@ -48,10 +53,18 @@ export default function LoginPage() {
       .validate(password)
       .then(() => {
         dispatch(onLogin({ email, password }));
-        setError(null);
-        setIsValidEmail(false);
+        handleReset();
       })
-      .catch(() => setError("invalid password"));
+      .catch(() => {
+        handleReset();
+        enqueueSnackbar("Something went wrong!", { variant: "error" });
+      });
+  };
+
+  const handleReset = () => {
+    setPassword("");
+    setIsValidEmail(false);
+    setError(null);
   };
 
   return (

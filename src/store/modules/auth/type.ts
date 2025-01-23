@@ -1,7 +1,7 @@
 export interface AuthState {
   user: {
     id?: string;
-    userName?: string;
+    username?: string;
     email?: string;
     avatar?: string;
   };
@@ -28,7 +28,7 @@ export interface RegisterPayload {
 
 export interface LoginSuccess {
   id: string;
-  userName: string;
+  username: string;
   email: string;
   avatar?: string;
 }

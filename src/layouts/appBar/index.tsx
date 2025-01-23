@@ -7,17 +7,28 @@ import { Button } from "../../components/common";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import "./styles.scss";
-import { selectUser } from "../../store/modules/auth/select";
+import { selectIsAuth, selectUser } from "../../store/modules/auth/select";
 import UnAuthControl from "./unAuthControl";
 import AuthControl from "./authControl";
+import ls from "localstorage-slim";
+import { onUpdateUser } from "../../store/modules/auth/action";
+import { LoginSuccess } from "../../store/modules/auth/type";
 
 export default function AppBar({ currentTheme }: { currentTheme: string }) {
+  const dispatch = useDispatch();
+
   const [theme, setTheme] = useState<boolean>(false);
 
-  const dispatch = useDispatch();
+  const isAuth = useSelector(selectIsAuth);
   const user = useSelector(selectUser);
 
-  const isAuth = !!user?.id;
+  const lsUser: LoginSuccess | null = ls.get("user");
+
+  useEffect(() => {
+    if (lsUser) {
+      dispatch(onUpdateUser(lsUser));
+    }
+  }, []);
 
   useEffect(() => {
     setTheme(currentTheme === "dark");

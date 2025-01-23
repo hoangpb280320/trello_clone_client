@@ -5,6 +5,8 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import NightlightIcon from "@mui/icons-material/Nightlight";
+import ProfileControlMenu from "./ProfileControlMenu";
+import { useState } from "react";
 
 interface Props {
   theme: boolean;
@@ -17,6 +19,13 @@ export default function UnAuthControl({
   user,
   handleChangeTheme,
 }: Props) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) =>
+    setAnchorEl(e.currentTarget);
+
+  const handleClose = () => setAnchorEl(null);
+
   return (
     <>
       <SearchBar />
@@ -29,15 +38,20 @@ export default function UnAuthControl({
       <IconButton onClick={() => handleChangeTheme(!theme)}>
         {theme ? <NightlightIcon /> : <WbSunnyIcon />}
       </IconButton>
-      <IconButton>
+      <IconButton onClick={handleOpen}>
         {user?.avatar ? (
           <Avatar src={user.avatar} className="avatar" />
-        ) : user?.userName ? (
-          <Avatar>{user.userName}</Avatar>
+        ) : user?.username ? (
+          <Avatar>{user.username.charAt(0)}</Avatar>
         ) : (
           <Avatar className="avatar" />
         )}
       </IconButton>
+      <ProfileControlMenu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        handleClose={handleClose}
+      />
     </>
   );
 }
