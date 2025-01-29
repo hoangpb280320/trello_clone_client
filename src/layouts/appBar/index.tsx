@@ -1,4 +1,4 @@
-import { Divider } from "@mui/material";
+import { Box, Divider, styled } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { onChangeTheme } from "../../store/modules/theme/action";
@@ -13,9 +13,18 @@ import AuthControl from "./authControl";
 import ls from "localstorage-slim";
 import { onUpdateUser } from "../../store/modules/auth/action";
 import { LoginSuccess } from "../../store/modules/auth/type";
+import { useNavigate } from "react-router";
+
+const Container = styled(Box)(({ theme }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  backgroundColor: theme.palette.background.default,
+  width: "100%",
+  position: "fixed",
+}));
 
 export default function AppBar({ currentTheme }: { currentTheme: string }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [theme, setTheme] = useState<boolean>(false);
 
@@ -39,10 +48,10 @@ export default function AppBar({ currentTheme }: { currentTheme: string }) {
   };
 
   return (
-    <>
+    <Container>
       <div className="app-bar">
         <div className="app-bar__left">
-          <div className="app-bar__item">
+          <div className="app-bar__item" onClick={() => navigate("/")}>
             <img src={reactIcon} alt="react-icon" />
           </div>
           <div className="app-bar__item">
@@ -84,6 +93,6 @@ export default function AppBar({ currentTheme }: { currentTheme: string }) {
         </div>
       </div>
       <Divider />
-    </>
+    </Container>
   );
 }

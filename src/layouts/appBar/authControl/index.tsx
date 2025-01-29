@@ -51,6 +51,7 @@ export default function UnAuthControl({
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         handleClose={handleClose}
+        username={user?.username}
       />
     </>
   );

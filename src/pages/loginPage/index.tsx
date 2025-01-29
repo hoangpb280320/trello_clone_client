@@ -13,7 +13,7 @@ import { emailSchema, passwordSchema } from "../../schemas";
 import Login from "../../components/login";
 import { useDispatch, useSelector } from "react-redux";
 import { onLogin } from "../../store/modules/auth/action";
-import { selectIsAuth } from "../../store/modules/auth/select";
+import { selectError, selectIsAuth } from "../../store/modules/auth/select";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router";
 
@@ -28,12 +28,19 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
 
   const isAuth = useSelector(selectIsAuth);
+  const selectErr = useSelector(selectError);
 
   useEffect(() => {
     if (isAuth) {
       navigate("/");
     }
   }, [isAuth]);
+
+  useEffect(() => {
+    if (selectErr) {
+      enqueueSnackbar(selectErr, { variant: "error" });
+    }
+  }, [selectErr]);
 
   const handleSubmitEmail = async () => {
     emailSchema

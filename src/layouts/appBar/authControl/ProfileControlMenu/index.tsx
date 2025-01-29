@@ -1,4 +1,11 @@
-import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
+import {
+  Avatar,
+  Divider,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  styled,
+} from "@mui/material";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
@@ -8,16 +15,22 @@ import "./styles.scss";
 import { useDispatch } from "react-redux";
 import { onLogout } from "../../../../store/modules/auth/action";
 
+const FirstDivider = styled(Divider)(() => ({
+  margin: "8px 0",
+}));
+
 interface Props {
   open: boolean;
   anchorEl: null | HTMLElement;
   handleClose: () => void;
+  username?: string;
 }
 
 export default function ProfileControlMenu({
   open,
   anchorEl,
   handleClose,
+  username,
 }: Props) {
   const dispatch = useDispatch();
 
@@ -64,6 +77,12 @@ export default function ProfileControlMenu({
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
+      {username && (
+        <>
+          <p>{username}</p>
+          <FirstDivider />
+        </>
+      )}
       <MenuItem onClick={handleClose}>
         <Avatar /> Profile
       </MenuItem>

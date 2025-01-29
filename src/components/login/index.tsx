@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { InputAdornment, TextField } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -78,11 +78,13 @@ export default function Login({
           input: {
             endAdornment: (
               <InputAdornment position="end" onClick={handleChangeVisibility}>
-                {isVisible ? (
-                  <VisibilityOffIcon fontSize="small" />
-                ) : (
-                  <VisibilityIcon fontSize="small" />
-                )}
+                <IconButton>
+                  {isVisible ? (
+                    <VisibilityOffIcon fontSize="small" />
+                  ) : (
+                    <VisibilityIcon fontSize="small" />
+                  )}
+                </IconButton>
               </InputAdornment>
             ),
           },
