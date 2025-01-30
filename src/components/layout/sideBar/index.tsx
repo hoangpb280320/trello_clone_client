@@ -1,4 +1,4 @@
-import { APP_BAR_HEIGHT, DRAWER_WIDTH } from "../../constant";
+import { APP_BAR_HEIGHT, DRAWER_WIDTH } from "../../../constant";
 import {
   Box,
   Collapse,
@@ -17,7 +17,7 @@ import "./styles.scss";
 import { useState } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import IconButton from "../../components/common/iconButton";
+import IconButton from "../../common/iconButton";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";

@@ -1,12 +1,12 @@
 import { Avatar, IconButton } from "@mui/material";
-import { SearchBar } from "../../../components/common";
-import { AuthState } from "../../../store/modules/auth/type";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import ProfileControlMenu from "./ProfileControlMenu";
 import { useState } from "react";
+import { AuthState } from "../../../../store/modules/auth/type";
+import { SearchBar } from "../../../common";
 
 interface Props {
   theme: boolean;

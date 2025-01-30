@@ -1,4 +1,4 @@
-import { Button } from "../../../components/common";
+import { Button } from "../../../common";
 import "../styles.scss";
 import { useNavigate } from "react-router";
 

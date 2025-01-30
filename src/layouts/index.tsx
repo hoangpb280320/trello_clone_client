@@ -1,12 +1,12 @@
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
-import AppBar from "./appBar";
 import { selectTheme } from "../store/modules/theme/select";
 import { useDispatch, useSelector } from "react-redux";
 import { darkTheme, lightTheme } from "../styles/globalTheme";
-import SideBar from "./sideBar";
+import SideBar from "../components/layout/sideBar";
 import { selectIsAuth } from "../store/modules/auth/select";
 import { useEffect } from "react";
 import { onFetchBackgrounds } from "../store/modules/backgrounds/action";
+import AppBar from "../components/layout/appBar";
 
 export default function MainLayout({
   children,

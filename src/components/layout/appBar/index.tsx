@@ -1,19 +1,19 @@
 import { Box, Divider, styled } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { onChangeTheme } from "../../store/modules/theme/action";
-import reactIcon from "../../assets/react.svg";
-import { Button } from "../../components/common";
+import reactIcon from "../../../assets/react.svg";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import "./styles.scss";
-import { selectIsAuth, selectUser } from "../../store/modules/auth/select";
 import UnAuthControl from "./unAuthControl";
 import AuthControl from "./authControl";
 import ls from "localstorage-slim";
-import { onUpdateUser } from "../../store/modules/auth/action";
-import { LoginSuccess } from "../../store/modules/auth/type";
 import { useNavigate } from "react-router";
+import { selectIsAuth, selectUser } from "../../../store/modules/auth/select";
+import { LoginSuccess } from "../../../store/modules/auth/type";
+import { onUpdateUser } from "../../../store/modules/auth/action";
+import { onChangeTheme } from "../../../store/modules/theme/action";
+import { Button } from "../../common";
 
 const Container = styled(Box)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,

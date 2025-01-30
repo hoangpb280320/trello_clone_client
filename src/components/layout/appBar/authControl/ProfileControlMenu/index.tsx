@@ -13,7 +13,7 @@ import ls from "localstorage-slim";
 
 import "./styles.scss";
 import { useDispatch } from "react-redux";
-import { onLogout } from "../../../../store/modules/auth/action";
+import { onLogout } from "../../../../../store/modules/auth/action";
 
 const FirstDivider = styled(Divider)(() => ({
   margin: "8px 0",
