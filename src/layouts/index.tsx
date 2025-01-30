@@ -1,16 +1,28 @@
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
-import AppBar from "../appBar";
-import { selectTheme } from "../../store/modules/theme/select";
-import { useSelector } from "react-redux";
-import { darkTheme, lightTheme } from "../../styles/globalTheme";
-import SideBar from "../sideBar";
+import AppBar from "./appBar";
+import { selectTheme } from "../store/modules/theme/select";
+import { useDispatch, useSelector } from "react-redux";
+import { darkTheme, lightTheme } from "../styles/globalTheme";
+import SideBar from "./sideBar";
+import { selectIsAuth } from "../store/modules/auth/select";
+import { useEffect } from "react";
+import { onFetchBackgrounds } from "../store/modules/backgrounds/action";
 
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const dispatch = useDispatch();
+
   const currentTheme = useSelector(selectTheme);
+  const isAuth = useSelector(selectIsAuth);
+
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(onFetchBackgrounds());
+    }
+  }, [isAuth]);
 
   return (
     <ThemeProvider theme={currentTheme === "light" ? lightTheme : darkTheme}>

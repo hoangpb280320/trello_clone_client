@@ -1,10 +1,8 @@
-type Background = 1 | 2 | 3 | 4;
-
 export interface Board {
   id: number;
   title: string;
   deadline?: string;
-  background: Background;
+  backgroundId: string;
   createdAt: string;
   updatedAt: string;
 }

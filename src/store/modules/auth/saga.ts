@@ -3,6 +3,7 @@ import { LoginResponse, LoginSuccess } from "./type";
 import { handleLogin, handleLoginWithGoogle } from "./service";
 import { LOGIN, LOGIN_WITH_GOOGLE, onLoginFail, onUpdateUser } from "./action";
 import ls from "localstorage-slim";
+import { getErrorMessage } from "../../../utils";
 
 function* watchLoginWithGoogle() {
   yield takeLatest(LOGIN_WITH_GOOGLE, loginWithGoogle);
@@ -35,16 +36,6 @@ function* login(action: ReturnType<typeof LOGIN>) {
     yield put(onLoginFail({ message }));
   }
 }
-
-const getErrorMessage = (error: any): string => {
-  console.error(error);
-  let message: string = "Something went wrong!";
-  const responseMessage = error?.response?.data?.message;
-  if (responseMessage && responseMessage !== "Internal server error") {
-    message = responseMessage;
-  }
-  return message;
-};
 
 export default function* authSaga() {
   yield all([fork(watchLogin), fork(watchLoginWithGoogle)]);

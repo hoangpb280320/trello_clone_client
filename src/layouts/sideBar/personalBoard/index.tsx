@@ -1,8 +1,8 @@
 import { List, ListItemButton, ListItemText, styled } from "@mui/material";
 import { ListSubheader } from "..";
-import { backgrounds } from "../../../constant";
 import { useSelector } from "react-redux";
 import { selectBoards } from "../../../store/modules/boards/select";
+import { selectBackgrounds } from "../../../store/modules/backgrounds/select";
 
 const Img = styled("div")(() => ({
   width: "30px",
@@ -19,11 +19,12 @@ const Img = styled("div")(() => ({
 
 export default function PersonalBoard() {
   const boards = useSelector(selectBoards);
+  const backgrounds = useSelector(selectBackgrounds);
 
-  const renderSrc = (bgId: number) => {
+  const renderSrc = (bgId: string) => {
     const bg = backgrounds.find((bg) => bg.id === bgId);
     if (bg) {
-      return bg.src;
+      return bg.image;
     }
     return "";
   };
@@ -38,7 +39,7 @@ export default function PersonalBoard() {
       {boards.map((board) => (
         <ListItemButton key={board.id}>
           <Img>
-            <img src={renderSrc(board.background)} alt="background" />
+            <img src={renderSrc(board.backgroundId)} alt="background" />
           </Img>
           <ListItemText primary={`Board ${board.title}`} />
         </ListItemButton>
