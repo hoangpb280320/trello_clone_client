@@ -4,8 +4,15 @@ export interface Background {
   image: string;
 }
 
+export interface UploadBackground {
+  file: File;
+  url: string;
+}
+
 export interface BackgroundsState {
   backgrounds: Background[];
+  uploadBackgrounds: UploadBackground[];
+  currentBackground: Background | UploadBackground | null;
   loading: boolean;
   error: string | null;
 }

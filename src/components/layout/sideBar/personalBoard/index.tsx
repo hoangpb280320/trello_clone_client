@@ -10,9 +10,12 @@ import {
   MenuItem,
 } from "@mui/material";
 import { ListSubheader } from "..";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectBoards } from "../../../../store/modules/boards/select";
-import { selectBackgrounds } from "../../../../store/modules/backgrounds/select";
+import {
+  selectBackgrounds,
+  selectCurrentBackground,
+} from "../../../../store/modules/backgrounds/select";
 import IconButton from "../../../common/iconButton";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import CloseIcon from "@mui/icons-material/Close";
@@ -20,6 +23,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./styles.scss";
 import { useEffect, useState } from "react";
 import { Button } from "../../../common";
+import trelloSvg from "../../../../assets/trello-skeleton.svg";
+import BackgroundModal from "./backgroundModal";
+import {
+  Background,
+  UploadBackground,
+} from "../../../../store/modules/backgrounds/type";
+import { onSetCurrentBackground } from "../../../../store/modules/backgrounds/action";
 
 const Img = styled("div")(() => ({
   width: "30px",
@@ -35,22 +45,37 @@ const Img = styled("div")(() => ({
 }));
 
 export default function PersonalBoard() {
+  const dispatch = useDispatch();
+
   const [addBoardAnchorEl, setAddBoardAnchorEl] = useState<null | HTMLElement>(
     null
   );
+  const [backgroundAnchorEl, setBackgroundAnchorEl] =
+    useState<null | HTMLElement>(null);
   const [title, setTitle] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
-  const [previewBackground, setPreviewBackground] = useState<string>("");
+  const [previewBackground, setPreviewBackground] = useState<string | null>(
+    null
+  );
 
   const boards = useSelector(selectBoards);
   const backgrounds = useSelector(selectBackgrounds);
+  const currentBg = useSelector(selectCurrentBackground);
 
   useEffect(() => {
     const firstBg = backgrounds[0];
     if (firstBg) {
-      setPreviewBackground(firstBg.image);
+      handleChangeBackground(firstBg, firstBg.image);
     }
   }, [backgrounds]);
+
+  const handleChangeBackground = (
+    bg: Background | UploadBackground,
+    src: string
+  ) => {
+    setPreviewBackground(src);
+    dispatch(onSetCurrentBackground(bg));
+  };
 
   const renderSrc = (bgId: string) => {
     const bg = backgrounds.find((bg) => bg.id === bgId);
@@ -65,10 +90,6 @@ export default function PersonalBoard() {
     setError(false);
   };
 
-  const handleChangeBackgroundPreview = (src: string) => {
-    setPreviewBackground(src);
-  };
-
   const renderSubHeader = () => {
     return (
       <ListSubheader className="personal-board__subheader">
@@ -81,6 +102,13 @@ export default function PersonalBoard() {
         </IconButton>
       </ListSubheader>
     );
+  };
+
+  const handleCreateBoard = () => {
+    console.log("check12", currentBg);
+    setError(false);
+    setTitle("");
+    setPreviewBackground(null);
   };
 
   return (
@@ -119,17 +147,28 @@ export default function PersonalBoard() {
             </IconButton>
           </div>
           <div className="main-content">
-            <div className="preview">
-              <img src={previewBackground} alt="preview" />
+            <div
+              className="preview"
+              style={{ backgroundImage: `url(${previewBackground})` }}
+            >
+              <img src={trelloSvg} alt="preview" />
             </div>
             <div className="background">
-              <p>Background</p>
+              <div className="background-title">
+                <p>Background</p>
+                <IconButton
+                  regtangle
+                  onClick={(e) => setBackgroundAnchorEl(e.currentTarget)}
+                >
+                  <AddOutlinedIcon fontSize="small" />
+                </IconButton>
+              </div>
               <Grid container spacing={1}>
                 {backgrounds.map((bg) => (
                   <Grid size={3} key={bg.id}>
                     <div
                       className="background-item"
-                      onClick={() => handleChangeBackgroundPreview(bg.image)}
+                      onClick={() => handleChangeBackground(bg, bg.image)}
                     >
                       <img src={bg.image} alt="background" />
                     </div>
@@ -163,6 +202,7 @@ export default function PersonalBoard() {
                 variant="contained"
                 sx={{ color: (theme) => theme.palette.text.primary }}
                 disabled={title.trim() === ""}
+                onClick={handleCreateBoard}
               >
                 Create
               </Button>
@@ -181,6 +221,13 @@ export default function PersonalBoard() {
             </div>
           </div>
         </div>
+        <BackgroundModal
+          anchorEl={backgroundAnchorEl}
+          open={Boolean(backgroundAnchorEl)}
+          onClose={() => setBackgroundAnchorEl(null)}
+          backgrounds={backgrounds}
+          handleChangeBackground={handleChangeBackground}
+        />
       </Popover>
     </List>
   );

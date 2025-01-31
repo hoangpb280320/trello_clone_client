@@ -4,10 +4,14 @@ import {
   FETCH_BACKGROUNDS,
   FETCH_BACKGROUNDS_FAILURE,
   FETCH_BACKGROUNDS_SUCCESS,
+  SET_CURRENT_BACKGROUND,
+  UPLOAD_BACKGROUND,
 } from "./action";
 
 const initialState: BackgroundsState = {
   backgrounds: [],
+  uploadBackgrounds: [],
+  currentBackground: null,
   loading: false,
   error: null,
 };
@@ -32,11 +36,27 @@ const onHandleFetchBackgroundsFailure = (
   state.error = action.payload;
 };
 
+const onHandleUploadBackground = (
+  state: BackgroundsState,
+  action: ReturnType<typeof UPLOAD_BACKGROUND>
+) => {
+  state.uploadBackgrounds = [action.payload].concat(state.uploadBackgrounds);
+};
+
+const onHandleSetCurrentBackground = (
+  state: BackgroundsState,
+  action: ReturnType<typeof SET_CURRENT_BACKGROUND>
+) => {
+  state.currentBackground = action.payload;
+};
+
 const backgroundsReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(FETCH_BACKGROUNDS, onHandleFetchBackgrounds)
     .addCase(FETCH_BACKGROUNDS_SUCCESS, onHandleFetchBackgroundsSuccess)
-    .addCase(FETCH_BACKGROUNDS_FAILURE, onHandleFetchBackgroundsFailure);
+    .addCase(FETCH_BACKGROUNDS_FAILURE, onHandleFetchBackgroundsFailure)
+    .addCase(UPLOAD_BACKGROUND, onHandleUploadBackground)
+    .addCase(SET_CURRENT_BACKGROUND, onHandleSetCurrentBackground);
 });
 
 export default backgroundsReducer;

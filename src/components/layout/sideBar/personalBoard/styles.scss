@@ -30,9 +30,11 @@
     .preview {
       width: 100%;
       height: 128px;
-      padding-bottom: 8px;
       display: flex;
       justify-content: center;
+      align-items: center;
+      background-repeat: no-repeat;
+      background-size: cover;
 
       img {
         width: 200px;
@@ -45,15 +47,21 @@
 
   .background {
     padding-bottom: 4px;
+    margin: 12px 0 0;
 
-    p {
-      font-size: 14px;
-      font-weight: bold;
-      margin: 12px 0 4px;
+    .background-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+
+      p {
+        font-size: 14px;
+        font-weight: bold;
+      }
     }
 
     .background-item {
-      width: 64px;
       height: 40px;
       cursor: pointer;
 
@@ -76,6 +84,7 @@
     p {
       font-size: 14px;
       font-weight: bold;
+      margin-bottom: 6px;
 
       &::after {
         content: "*";
@@ -91,6 +100,7 @@
     p {
       font-size: 14px;
       font-weight: bold;
+      margin-bottom: 6px;
     }
   }
 
